@@ -254,7 +254,7 @@ async function seed() {
     data: {
       _status: 'published',
       hero: {
-        title: 'คุณแม่จู้ของฝากเมืองภูเก็ต',
+        title: 'คุณแม่จู้\nของฝากเมืองภูเก็ต',
         tagline: `${TODO} tagline`,
         image: heroImage,
         primaryCta: { label: 'ดูสินค้า', href: '/products' },

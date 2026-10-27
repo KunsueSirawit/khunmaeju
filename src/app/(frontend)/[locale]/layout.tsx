@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -6,6 +6,8 @@ import React from 'react'
 
 import { routing } from '@/i18n/routing'
 import { serverURL } from '@/lib/preview'
+
+import { bodyFont, headingFont } from '../fonts'
 import '../globals.css'
 
 export const metadata: Metadata = {
@@ -14,6 +16,10 @@ export const metadata: Metadata = {
     default: 'คุณแม่จู้ของฝากเมืองภูเก็ต',
     template: '%s | คุณแม่จู้ภูเก็ต',
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0c3b3a',
 }
 
 export default async function LocaleLayout({
@@ -28,7 +34,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${headingFont.variable} ${bodyFont.variable}`}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

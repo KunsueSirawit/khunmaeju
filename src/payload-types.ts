@@ -934,6 +934,9 @@ export interface SiteSetting {
 export interface HomePage {
   id: number;
   hero: {
+    /**
+     * กด Enter เพื่อขึ้นบรรทัดใหม่ตรงที่ต้องการ
+     */
     title: string;
     tagline?: string | null;
     image?: (number | null) | Media;

@@ -7,13 +7,42 @@
     "services": "บริการ",
     "news": "ข่าวสาร",
     "contact": "ติดต่อเรา",
-    "switchLanguage": "เปลี่ยนภาษา"
+    "switchLanguage": "เปลี่ยนภาษา",
+    "openMenu": "เปิดเมนู",
+    "closeMenu": "ปิดเมนู"
   },
   "Common": {
     "comingSoon": "หน้านี้อยู่ระหว่างพัฒนา",
     "readMore": "อ่านเพิ่มเติม",
     "orderViaLine": "สั่งซื้อผ่าน LINE",
     "callUs": "โทรหาเรา",
-    "baht": "บาท"
+    "baht": "บาท",
+    "skipToContent": "ข้ามไปยังเนื้อหา"
+  },
+  "Home": {
+    "aboutEyebrow": "รู้จักเรา",
+    "productsEyebrow": "สินค้าของเรา",
+    "allProducts": "ดูสินค้าทั้งหมด",
+    "servicesEyebrow": "บริการ",
+    "allServices": "ดูบริการทั้งหมด",
+    "certificatesEyebrow": "มาตรฐาน",
+    "allCertificates": "ดูใบรับรองทั้งหมด",
+    "branchesEyebrow": "แวะมาหาเรา",
+    "directions": "นำทาง",
+    "newsEyebrow": "ข่าวสาร",
+    "allNews": "ดูข่าวทั้งหมด"
+  },
+  "Footer": {
+    "menu": "เมนู",
+    "categories": "หมวดสินค้า",
+    "contact": "ติดต่อเรา",
+    "map": "แผนที่",
+    "mapPlaceholder": "[รอข้อมูล] แผนที่ร้าน",
+    "mediaMentions": "สื่อที่พูดถึงเรา",
+    "rights": "สงวนลิขสิทธิ์"
+  },
+  "Product": {
+    "sale": "ลดราคา",
+    "askPrice": "สอบถามราคา"
   }
 }

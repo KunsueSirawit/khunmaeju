@@ -32,7 +32,14 @@ export const HomePage: GlobalConfig = {
           label: 'Hero',
           name: 'hero',
           fields: [
-            { name: 'title', type: 'text', label: 'ชื่อแบรนด์/หัวข้อใหญ่', required: true, localized: true },
+            {
+              name: 'title',
+              type: 'textarea',
+              label: 'ชื่อแบรนด์/หัวข้อใหญ่',
+              required: true,
+              localized: true,
+              admin: { description: 'กด Enter เพื่อขึ้นบรรทัดใหม่ตรงที่ต้องการ' },
+            },
             { name: 'tagline', type: 'textarea', label: 'Tagline', localized: true },
             { name: 'image', type: 'upload', relationTo: 'media', label: 'รูปพื้นหลัง' },
             linkGroup('primaryCta', 'ปุ่มหลัก'),

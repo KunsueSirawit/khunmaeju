@@ -7,13 +7,42 @@
     "services": "Services",
     "news": "News",
     "contact": "Contact",
-    "switchLanguage": "Change language"
+    "switchLanguage": "Change language",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "Common": {
     "comingSoon": "This page is under construction",
     "readMore": "Read more",
     "orderViaLine": "Order via LINE",
     "callUs": "Call us",
-    "baht": "THB"
+    "baht": "THB",
+    "skipToContent": "Skip to content"
+  },
+  "Home": {
+    "aboutEyebrow": "Our story",
+    "productsEyebrow": "Our products",
+    "allProducts": "View all products",
+    "servicesEyebrow": "Services",
+    "allServices": "View all services",
+    "certificatesEyebrow": "Standards",
+    "allCertificates": "View all certificates",
+    "branchesEyebrow": "Visit us",
+    "directions": "Directions",
+    "newsEyebrow": "News",
+    "allNews": "View all news"
+  },
+  "Footer": {
+    "menu": "Menu",
+    "categories": "Categories",
+    "contact": "Contact",
+    "map": "Map",
+    "mapPlaceholder": "[PLACEHOLDER] Shop map",
+    "mediaMentions": "As seen in",
+    "rights": "All rights reserved."
+  },
+  "Product": {
+    "sale": "Sale",
+    "askPrice": "Ask for price"
   }
 }
