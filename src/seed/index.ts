@@ -41,7 +41,7 @@ async function upsertUser(payload: Payload, email: string | undefined, password:
     payload.logger.info(`User ${email} already exists`)
     return
   }
-  await payload.create({ collection: 'users', data: { email, password, role, name: role } })
+  await payload.create({ collection: 'users', data: { email, username: email.split('@')[0], password, role, name: role } })
   payload.logger.info(`Created ${role} user ${email} (password is in .env)`)
 }
 

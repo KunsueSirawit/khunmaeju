@@ -3,6 +3,7 @@ import config from '../../src/payload.config.js'
 
 export const testUser = {
   email: 'e2e-admin@khunmaeju.test',
+  username: 'e2e-admin',
   password: 'e2e-test-password',
   role: 'admin' as const,
 }

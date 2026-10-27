@@ -6,11 +6,14 @@ export const Users: CollectionConfig = {
   slug: 'users',
   labels: { singular: 'ผู้ใช้', plural: 'ผู้ใช้' },
   admin: {
-    useAsTitle: 'email',
-    defaultColumns: ['email', 'name', 'role'],
+    useAsTitle: 'username',
+    defaultColumns: ['username', 'email', 'name', 'role'],
     group: 'ระบบ',
   },
-  auth: true,
+  auth: {
+    // Log in with either a username (e.g. system_admin) or the email address.
+    loginWithUsername: { allowEmailLogin: true, requireEmail: true },
+  },
   access: {
     // Only admins can create or delete users; editors can manage content but not people.
     create: isAdmin,
