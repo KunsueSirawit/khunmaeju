@@ -5,13 +5,15 @@ import { ProductListing } from '@/components/product/ProductListing'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { getProductCategories, getProducts, parsePage } from '@/lib/data'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata, pagedPath } from '@/lib/seo'
 
 type Props = LocaleParams & { searchParams: Promise<{ page?: string }> }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
   const t = await getTranslations({ locale, namespace: 'Products' })
-  return { title: t('title'), description: t('intro') }
+  const path = pagedPath('/products', parsePage((await searchParams).page))
+  return pageMetadata({ locale, path, title: t('title'), description: t('intro') })
 }
 
 export default async function ProductsPage({ params, searchParams }: Props) {

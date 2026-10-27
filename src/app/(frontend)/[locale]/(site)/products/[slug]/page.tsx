@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 
 import { ProductCard } from '@/components/product/ProductCard'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { ProductGallery } from '@/components/product/ProductGallery'
 import { buttonClass } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
@@ -13,24 +14,33 @@ import { Link } from '@/i18n/navigation'
 import { getProduct, getRelatedProducts, getSiteSettings } from '@/lib/data'
 import { formatPrice, telHref } from '@/lib/format'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
+import { productSchema } from '@/lib/structured-data'
 import type { Media, ProductCategory } from '@/payload-types'
 
-type Props = LocaleParams<{ slug: string }>
+type Props = LocaleParams<{ slug: string }> & { searchParams: Promise<{ from?: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await resolveLocale(params)
   const product = await getProduct(locale, slug)
   if (!product) return {}
-  return {
+  return pageMetadata({
+    locale,
+    path: `/products/${slug}`,
     title: product.meta?.title || product.name,
-    description: product.meta?.description || product.shortDescription || undefined,
-  }
+    description: product.meta?.description || product.shortDescription,
+    image: product.meta?.image || product.images?.[0],
+  })
 }
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params, searchParams }: Props) {
   const { locale, slug } = await resolveLocale(params)
   const product = await getProduct(locale, slug)
-  if (!product) notFound()
+  if (!product) {
+    // Old-site link (see legacy-redirects.ts) to a product that has no matching slug here.
+    if ((await searchParams).from === 'legacy') permanentRedirect(`/${locale}/products`)
+    notFound()
+  }
 
   const [settings, related, t, nav] = await Promise.all([
     getSiteSettings(locale),
@@ -53,6 +63,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={productSchema(product, settings, locale)} />
       <div className="container-page pt-6">
         <nav aria-label="Breadcrumb">
           <ol className="flex flex-wrap items-center gap-x-2 text-sm text-muted">

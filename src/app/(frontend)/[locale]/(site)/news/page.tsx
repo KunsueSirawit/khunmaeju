@@ -7,13 +7,16 @@ import { Pagination } from '@/components/ui/Pagination'
 import { Link } from '@/i18n/navigation'
 import { getPostCategories, getPosts, parsePage } from '@/lib/data'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata, pagedPath } from '@/lib/seo'
 
 type Props = LocaleParams & { searchParams: Promise<{ page?: string; category?: string }> }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
+  const query = await searchParams
   const t = await getTranslations({ locale, namespace: 'News' })
-  return { title: t('title'), description: t('intro') }
+  const path = pagedPath('/news', parsePage(query.page), query.category ? { category: query.category } : {})
+  return pageMetadata({ locale, path, title: t('title'), description: t('intro') })
 }
 
 export default async function NewsPage({ params, searchParams }: Props) {

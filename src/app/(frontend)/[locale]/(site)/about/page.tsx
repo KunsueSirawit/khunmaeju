@@ -8,11 +8,12 @@ import { RichText } from '@/components/ui/RichText'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { getAboutPage, getCertificates } from '@/lib/data'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
   const about = await getAboutPage(locale)
-  return { title: about.heading, description: about.intro ?? undefined }
+  return pageMetadata({ locale, path: '/about', title: about.heading, description: about.intro, image: about.heroImage })
 }
 
 export default async function AboutPage({ params }: LocaleParams) {

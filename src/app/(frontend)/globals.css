@@ -18,7 +18,7 @@
   --color-accent-100: #f8ecd4;
   --color-accent-400: #dcaa52;
   --color-accent-500: #c8902f;
-  --color-accent-600: #a87422;
+  --color-accent-600: #8a5d14; /* ≥4.5:1 on cream/sand for small text */
 
   --color-cream: #faf6ef;
   --color-sand: #f1e9dc;

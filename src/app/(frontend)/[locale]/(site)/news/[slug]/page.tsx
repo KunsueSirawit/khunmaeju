@@ -3,15 +3,18 @@ import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
 import { PostCard } from '@/components/news/PostCard'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { Button } from '@/components/ui/Button'
 import { Icon } from '@/components/ui/Icon'
 import { MediaImage } from '@/components/ui/MediaImage'
 import { RichText } from '@/components/ui/RichText'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Link } from '@/i18n/navigation'
-import { getLatestPosts, getPost } from '@/lib/data'
+import { getLatestPosts, getPost, getSiteSettings } from '@/lib/data'
 import { formatDate } from '@/lib/format'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
+import { articleSchema } from '@/lib/structured-data'
 
 type Props = LocaleParams<{ slug: string }>
 
@@ -19,10 +22,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await resolveLocale(params)
   const post = await getPost(locale, slug)
   if (!post) return {}
-  return {
+  return pageMetadata({
+    locale,
+    path: `/news/${slug}`,
     title: post.meta?.title || post.title,
-    description: post.meta?.description || post.excerpt || undefined,
-  }
+    description: post.meta?.description || post.excerpt,
+    image: post.meta?.image || post.cover,
+    type: 'article',
+    publishedTime: post.publishedAt,
+  })
 }
 
 export default async function PostPage({ params }: Props) {
@@ -30,12 +38,18 @@ export default async function PostPage({ params }: Props) {
   const post = await getPost(locale, slug)
   if (!post) notFound()
 
-  const [latest, t, nav] = await Promise.all([getLatestPosts(locale, 4), getTranslations('News'), getTranslations('Nav')])
+  const [settings, latest, t, nav] = await Promise.all([
+    getSiteSettings(locale),
+    getLatestPosts(locale, 4),
+    getTranslations('News'),
+    getTranslations('Nav'),
+  ])
   const more = latest.filter((p) => p.id !== post.id).slice(0, 3)
   const category = post.category && typeof post.category === 'object' ? post.category : null
 
   return (
     <>
+      <JsonLd data={articleSchema(post, settings, locale)} />
       <article>
         <header className="container-page max-w-4xl pt-8 pb-6 sm:pt-12">
           <nav aria-label="Breadcrumb">

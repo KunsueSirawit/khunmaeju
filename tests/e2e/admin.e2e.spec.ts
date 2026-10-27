@@ -3,9 +3,12 @@ import { login } from '../helpers/login'
 import { seedTestUser, cleanupTestUser, testUser } from '../helpers/seedUser'
 
 test.describe('Admin Panel', () => {
+  // The first /admin load compiles the admin UI in dev mode, which can take well over 30s.
+  test.describe.configure({ timeout: 120_000 })
+
   let page: Page
 
-  test.beforeAll(async ({ browser }, testInfo) => {
+  test.beforeAll(async ({ browser }) => {
     await seedTestUser()
 
     const context = await browser.newContext()
@@ -27,8 +30,8 @@ test.describe('Admin Panel', () => {
 
   test('can navigate to list view', async () => {
     await page.goto('http://localhost:3000/admin/collections/users')
-    await expect(page).toHaveURL('http://localhost:3000/admin/collections/users')
-    const listViewArtifact = page.locator('h1', { hasText: 'Users' }).first()
+    await expect(page).toHaveURL(/\/admin\/collections\/users(\?|$)/)
+    const listViewArtifact = page.locator('h1', { hasText: 'ผู้ใช้' }).first()
     await expect(listViewArtifact).toBeVisible()
   })
 

@@ -8,11 +8,12 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { RichText } from '@/components/ui/RichText'
 import { getServicesPage } from '@/lib/data'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
   const page = await getServicesPage(locale)
-  return { title: page.heading, description: page.intro ?? undefined }
+  return pageMetadata({ locale, path: '/services', title: page.heading, description: page.intro })
 }
 
 /** One page, one section per service, each reachable at /services#anchor. */

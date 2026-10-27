@@ -7,13 +7,14 @@ import { PageHeader } from '@/components/ui/PageHeader'
 import { getBranches, getSiteSettings } from '@/lib/data'
 import { telHref } from '@/lib/format'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
 
 import { ContactForm } from './ContactForm'
 
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
   const t = await getTranslations({ locale, namespace: 'Contact' })
-  return { title: t('title'), description: t('intro') }
+  return pageMetadata({ locale, path: '/contact', title: t('title'), description: t('intro') })
 }
 
 export default async function ContactPage({ params }: LocaleParams) {

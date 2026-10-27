@@ -1,6 +1,9 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('Frontend', () => {
+  // "/" picks the language from the browser; a Thai browser (and Google, which sends none) gets /th.
+  test.use({ locale: 'th-TH' })
+
   test('root redirects to the Thai home page', async ({ page }) => {
     await page.goto('http://localhost:3000/')
 

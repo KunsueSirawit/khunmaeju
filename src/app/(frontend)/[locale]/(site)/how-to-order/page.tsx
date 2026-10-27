@@ -11,6 +11,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { getHowToOrderPage, getSiteSettings } from '@/lib/data'
 import { telHref } from '@/lib/format'
 import { type LocaleParams, resolveLocale } from '@/lib/locale'
+import { pageMetadata } from '@/lib/seo'
 import type { HowToOrderPage as HowToOrder } from '@/payload-types'
 
 type ChannelType = NonNullable<HowToOrder['channels']>[number]['type']
@@ -20,7 +21,7 @@ const channelIcon: Record<ChannelType, IconName> = { line: 'line', phone: 'phone
 export async function generateMetadata({ params }: LocaleParams): Promise<Metadata> {
   const { locale } = await resolveLocale(params)
   const page = await getHowToOrderPage(locale)
-  return { title: page.heading, description: page.intro ?? undefined }
+  return pageMetadata({ locale, path: '/how-to-order', title: page.heading, description: page.intro })
 }
 
 export default async function HowToOrderPage({ params }: LocaleParams) {

@@ -52,9 +52,10 @@ export async function ProductListing({ result, categories, activeSlug, basePath 
         <p className="mb-5 text-sm text-muted">{t('count', { count: result.totalDocs })}</p>
         {result.docs.length ? (
           <ul className="grid grid-cols-2 gap-3 sm:gap-5 md:grid-cols-3 xl:grid-cols-4">
-            {result.docs.map((product) => (
+            {result.docs.map((product, i) => (
               <li key={product.id}>
-                <ProductCard product={product} />
+                {/* The first mobile row is above the fold and usually the LCP. */}
+                <ProductCard product={product} priority={i < 2} />
               </li>
             ))}
           </ul>

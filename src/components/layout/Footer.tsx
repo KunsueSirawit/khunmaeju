@@ -6,6 +6,7 @@ import { mainNav } from '@/lib/nav'
 import type { Branch, ProductCategory, SiteSetting } from '@/payload-types'
 
 import { Icon } from '../ui/Icon'
+import { MaybeLink } from '../ui/MaybeLink'
 import { MediaImage } from '../ui/MediaImage'
 import { Logo } from './Logo'
 import { SocialLinks } from './SocialLinks'
@@ -80,17 +81,17 @@ export async function Footer({ settings, categories, mainBranch }: Props) {
             {settings.phoneDisplay && (
               <li className="flex gap-3">
                 <Icon name="phone" className="mt-1 size-5 shrink-0 text-accent-400" />
-                <a href={tel ?? undefined} className="hover:text-white">
+                <MaybeLink href={tel} className="hover:text-white">
                   {settings.phoneDisplay}
-                </a>
+                </MaybeLink>
               </li>
             )}
             {settings.lineId && (
               <li className="flex gap-3">
                 <Icon name="line" className="mt-1 size-5 shrink-0 text-accent-400" />
-                <a href={settings.lineUrl ?? undefined} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                <MaybeLink href={settings.lineUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
                   {settings.lineId}
-                </a>
+                </MaybeLink>
               </li>
             )}
             {settings.email && (

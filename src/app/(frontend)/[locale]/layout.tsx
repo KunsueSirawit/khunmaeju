@@ -5,17 +5,25 @@ import { notFound } from 'next/navigation'
 import React from 'react'
 
 import { routing } from '@/i18n/routing'
+import { getSiteSettings } from '@/lib/data'
 import { serverURL } from '@/lib/preview'
 
 import { bodyFont, headingFont } from '../fonts'
 import '../globals.css'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(serverURL()),
-  title: {
-    default: 'คุณแม่จู้ของฝากเมืองภูเก็ต',
-    template: '%s | คุณแม่จู้ภูเก็ต',
-  },
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  // Unknown locales (e.g. /favicon.ico) 404 in the layout; don't hit the database for them.
+  const siteName = hasLocale(routing.locales, locale)
+    ? (await getSiteSettings(locale)).siteName
+    : 'คุณแม่จู้ของฝากเมืองภูเก็ต'
+  return {
+    metadataBase: new URL(serverURL()),
+    title: { default: siteName, template: `%s | ${siteName}` },
+    applicationName: siteName,
+    // Staging/preview servers set NOINDEX=true so they never show up in search results.
+    ...(process.env.NOINDEX === 'true' ? { robots: { index: false, follow: false } } : {}),
+  }
 }
 
 export const viewport: Viewport = {

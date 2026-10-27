@@ -231,3 +231,29 @@ export const parsePage = (value: string | string[] | undefined): number => {
   const n = Number(Array.isArray(value) ? value[0] : value)
   return Number.isInteger(n) && n > 0 ? n : 1
 }
+
+// --- Sitemap -----------------------------------------------------------------
+
+export type SitemapDoc = { slug: string; updatedAt: string }
+
+/** Every published product, category and post (slugs are the same in every locale). */
+export const getSitemapDocs = async (): Promise<Record<'products' | 'categories' | 'posts', SitemapDoc[]>> => {
+  const pick = (docs: { slug?: string | null; updatedAt: string }[]) =>
+    docs.filter((d): d is SitemapDoc => Boolean(d.slug)).map(({ slug, updatedAt }) => ({ slug, updatedAt }))
+  if (useFixtures) {
+    const f = await fixtures()
+    return {
+      products: pick(f.products('th')),
+      categories: pick(f.productCategories('th')),
+      posts: pick(f.posts('th')),
+    }
+  }
+  const payload = await payloadClient()
+  const options = { pagination: false, depth: 0, select: { slug: true, updatedAt: true } } as const
+  const [products, categories, posts] = await Promise.all([
+    payload.find({ collection: 'products', where: published, ...options }),
+    payload.find({ collection: 'product-categories', ...options }),
+    payload.find({ collection: 'posts', where: published, ...options }),
+  ])
+  return { products: pick(products.docs), categories: pick(categories.docs), posts: pick(posts.docs) }
+}

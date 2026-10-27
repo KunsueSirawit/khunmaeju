@@ -8,7 +8,8 @@ import { MediaImage } from '../ui/MediaImage'
 
 export type ProductCardData = Pick<Product, 'id' | 'name' | 'slug' | 'price' | 'salePrice' | 'images' | 'weight'>
 
-export async function ProductCard({ product }: { product: ProductCardData }) {
+/** `priority`: load the image right away (cards in the first row of a listing, the page's LCP). */
+export async function ProductCard({ product, priority }: { product: ProductCardData; priority?: boolean }) {
   const t = await getTranslations('Product')
   const locale = await getLocale()
   const onSale = product.salePrice != null && product.price != null && product.salePrice < product.price
@@ -22,6 +23,7 @@ export async function ProductCard({ product }: { product: ProductCardData }) {
           size="card"
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+          priority={priority}
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {onSale && (

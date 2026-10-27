@@ -4,6 +4,8 @@ import createNextIntlPlugin from 'next-intl/plugin'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import { legacyRedirects } from './src/legacy-redirects'
+
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
 
@@ -20,6 +22,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  redirects: async () => legacyRedirects,
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
