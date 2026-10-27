@@ -1,0 +1,19 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About Us",
+    "products": "Products",
+    "howToOrder": "How to Order",
+    "services": "Services",
+    "news": "News",
+    "contact": "Contact",
+    "switchLanguage": "Change language"
+  },
+  "Common": {
+    "comingSoon": "This page is under construction",
+    "readMore": "Read more",
+    "orderViaLine": "Order via LINE",
+    "callUs": "Call us",
+    "baht": "THB"
+  }
+}

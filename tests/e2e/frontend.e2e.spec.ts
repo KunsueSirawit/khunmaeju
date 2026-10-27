@@ -1,20 +1,18 @@
-import { test, expect, Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test.describe('Frontend', () => {
-  let page: Page
+  test('root redirects to the Thai home page', async ({ page }) => {
+    await page.goto('http://localhost:3000/')
 
-  test.beforeAll(async ({ browser }, testInfo) => {
-    const context = await browser.newContext()
-    page = await context.newPage()
+    await expect(page).toHaveURL(/\/th$/)
+    await expect(page.locator('html')).toHaveAttribute('lang', 'th')
+    await expect(page.locator('h1').first()).toBeVisible()
   })
 
-  test('can go on homepage', async ({ page }) => {
-    await page.goto('http://localhost:3000')
+  test('English home page renders', async ({ page }) => {
+    await page.goto('http://localhost:3000/en')
 
-    await expect(page).toHaveTitle(/Payload Blank Template/)
-
-    const heading = page.locator('h1').first()
-
-    await expect(heading).toHaveText('Welcome to your new project.')
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+    await expect(page.locator('h1').first()).toBeVisible()
   })
 })

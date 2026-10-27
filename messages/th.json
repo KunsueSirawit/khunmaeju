@@ -1,0 +1,19 @@
+{
+  "Nav": {
+    "home": "หน้าแรก",
+    "about": "เกี่ยวกับเรา",
+    "products": "สินค้า",
+    "howToOrder": "วิธีสั่งซื้อ",
+    "services": "บริการ",
+    "news": "ข่าวสาร",
+    "contact": "ติดต่อเรา",
+    "switchLanguage": "เปลี่ยนภาษา"
+  },
+  "Common": {
+    "comingSoon": "หน้านี้อยู่ระหว่างพัฒนา",
+    "readMore": "อ่านเพิ่มเติม",
+    "orderViaLine": "สั่งซื้อผ่าน LINE",
+    "callUs": "โทรหาเรา",
+    "baht": "บาท"
+  }
+}
