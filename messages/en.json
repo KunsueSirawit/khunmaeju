@@ -43,6 +43,94 @@
   },
   "Product": {
     "sale": "Sale",
-    "askPrice": "Ask for price"
+    "askPrice": "Ask for price",
+    "weight": "Size / weight",
+    "shelfLife": "Shelf life",
+    "sku": "SKU",
+    "image": "Image",
+    "orderLine": "Order via LINE",
+    "orderPhone": "Call to order",
+    "orderHint": "Order on LINE or by phone. See",
+    "details": "Product details",
+    "storage": "Storage",
+    "ingredients": "Ingredients",
+    "related": "Related products"
+  },
+  "Pagination": {
+    "label": "Pagination",
+    "previous": "Previous page",
+    "next": "Next page",
+    "page": "Page {page}"
+  },
+  "Products": {
+    "title": "Products",
+    "intro": "Souvenirs and local treats from Phuket",
+    "all": "All products",
+    "categories": "Categories",
+    "count": "{count} items",
+    "empty": "No products in this category yet."
+  },
+  "News": {
+    "title": "News",
+    "intro": "Latest news and promotions from Khunmaeju",
+    "all": "All",
+    "filter": "Filter by category",
+    "empty": "No posts in this category yet.",
+    "back": "Back to news",
+    "more": "More news"
+  },
+  "About": {
+    "timelineEyebrow": "History",
+    "founderLabel": "Founder quote",
+    "photoPlaceholder": "[PLACEHOLDER] Founder photo",
+    "certificatesEyebrow": "Standards",
+    "downloadPdf": "Download PDF"
+  },
+  "Services": {
+    "jumpTo": "Jump to service"
+  },
+  "HowToOrder": {
+    "stepsHeading": "How it works",
+    "channelsHeading": "Ways to order",
+    "actionLine": "Chat on LINE",
+    "actionPhone": "Call now",
+    "actionStore": "Find the shop",
+    "actionOther": "Details",
+    "noteHeading": "Payment & delivery"
+  },
+  "Contact": {
+    "title": "Contact Us",
+    "intro": "Questions, orders or business enquiries: reach us on any channel.",
+    "channels": "Contact channels",
+    "formHeading": "Send us a message",
+    "name": "Name",
+    "phone": "Phone",
+    "email": "Email",
+    "replyHint": "Please give a phone number or email so we can reply.",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send message",
+    "sending": "Sending…",
+    "successTitle": "Message received, thank you!",
+    "successBody": "We will get back to you as soon as possible.",
+    "error": {
+      "invalid": "Please check the highlighted fields (name, message, and a phone or email are required).",
+      "rateLimited": "Too many messages. Please wait a moment and try again.",
+      "server": "Could not send. Please try again or contact us on LINE or by phone."
+    },
+    "branches": "Our branches",
+    "directions": "Directions",
+    "map": "Map",
+    "mapPlaceholder": "[PLACEHOLDER] Branch map"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "body": "The link may be wrong, or the page has moved.",
+    "home": "Back to home",
+    "products": "View products"
+  },
+  "Preview": {
+    "notice": "Previewing a draft",
+    "exit": "Exit preview"
   }
 }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { ReactNode } from 'react'
 
 import { SiteShell } from '@/components/layout/SiteShell'
+import { DraftBanner } from '@/components/preview/DraftBanner'
 import type { Locale } from '@/i18n/locales'
 import { routing } from '@/i18n/routing'
 import { getBranches, getProductCategories, getSiteSettings } from '@/lib/data'
@@ -27,6 +28,7 @@ export default async function SiteLayout({
   return (
     <SiteShell settings={settings} categories={categories} mainBranch={branches[0]}>
       {children}
+      <DraftBanner />
     </SiteShell>
   )
 }

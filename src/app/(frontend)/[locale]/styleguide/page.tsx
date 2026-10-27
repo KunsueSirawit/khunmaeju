@@ -6,7 +6,7 @@ import { SiteShell } from '@/components/layout/SiteShell'
 import { HomeView } from '@/components/sections/HomeView'
 import { Button } from '@/components/ui/Button'
 import type { Locale } from '@/i18n/locales'
-import { styleguideData } from '@/styleguide/fixtures'
+import { fixtures } from '@/fixtures'
 
 export const metadata: Metadata = {
   title: 'Styleguide',
@@ -36,7 +36,15 @@ export default async function StyleguidePage({ params }: { params: Promise<{ loc
   if (process.env.NODE_ENV === 'production' && process.env.ENABLE_STYLEGUIDE !== 'true') notFound()
   const locale = (await params).locale as Locale
   setRequestLocale(locale)
-  const data = styleguideData(locale)
+  const data = {
+    settings: fixtures.siteSettings(locale),
+    categories: fixtures.productCategories(locale),
+    home: fixtures.homePage(locale),
+    products: fixtures.products(locale).slice(0, 8),
+    certificates: fixtures.certificates(locale),
+    branches: fixtures.branches(locale).slice(0, 1),
+    posts: fixtures.posts(locale).slice(0, 3),
+  }
 
   return (
     <SiteShell settings={data.settings} categories={data.categories} mainBranch={data.branches[0]}>
