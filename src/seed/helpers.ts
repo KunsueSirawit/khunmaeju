@@ -1,4 +1,5 @@
 import type { Payload } from 'payload'
+import type { Media } from '@/payload-types'
 import sharp from 'sharp'
 
 /** Marker for content we do not have yet. Search the admin for it before launch. */
@@ -16,7 +17,7 @@ const escapeXML = (s: string) => s.replace(/[<>&"']/g, (c) => `&#${c.charCodeAt(
 export const placeholderImage = async (
   payload: Payload,
   { label, width = 1200, height = 1200, alt }: { label: string; width?: number; height?: number; alt: string },
-): Promise<number> => {
+): Promise<Media['id']> => {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
     <rect width="100%" height="100%" fill="#e7e2d8"/>
     <rect x="12" y="12" width="${width - 24}" height="${height - 24}" fill="none" stroke="#b9ad97" stroke-width="6" stroke-dasharray="24 16"/>
@@ -38,7 +39,7 @@ export const placeholderImage = async (
 }
 
 /** A one-page PDF so the "download certificate" button has something to serve. */
-export const placeholderPDF = async (payload: Payload, label: string): Promise<number> => {
+export const placeholderPDF = async (payload: Payload, label: string): Promise<Media['id']> => {
   const text = `PLACEHOLDER - ${label}`.replace(/[()\\]/g, '')
   const stream = `BT /F1 24 Tf 72 720 Td (${text}) Tj ET`
   const objects = [

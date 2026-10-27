@@ -15,7 +15,7 @@ ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 # The build does not touch the database; a dummy secret keeps Payload's config happy.
-RUN PAYLOAD_SECRET=build-only DATABASE_URL=postgres://build:build@localhost:5432/build npm run build
+RUN PAYLOAD_SECRET=build-only DATABASE_URL=mongodb://127.0.0.1:27017/build npm run build
 
 FROM base AS runner
 WORKDIR /app
@@ -32,5 +32,4 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 USER nextjs
 EXPOSE 3000
-# Payload applies pending migrations (src/migrations) on start-up.
 CMD ["node", "server.js"]

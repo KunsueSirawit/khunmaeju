@@ -15,10 +15,11 @@
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/index.ts",
+    "db:local": "node scripts/local-mongo.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.92.0",
+    "@payloadcms/db-mongodb": "3.92.0",
     "@payloadcms/email-nodemailer": "^3.92.0",
     "@payloadcms/live-preview-react": "^3.92.0",
     "@payloadcms/next": "3.92.0",
@@ -49,6 +50,7 @@
     "eslint": "^9.16.0",
     "eslint-config-next": "16.3.3",
     "jsdom": "28.0.0",
+    "mongodb-memory-server": "^11.3.0",
     "postcss": "^8.5.32",
     "prettier": "^3.4.2",
     "tailwindcss": "^4.3.3",

@@ -100,7 +100,7 @@ export interface Config {
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
-    defaultIDType: number;
+    defaultIDType: string;
   };
   fallbackLocale: ('false' | 'none' | 'null') | false | null | ('th' | 'en') | ('th' | 'en')[];
   globals: {
@@ -156,7 +156,7 @@ export interface UserAuthOperations {
  * via the `definition` "products".
  */
 export interface Product {
-  id: number;
+  id: string;
   name: string;
   shortDescription?: string | null;
   description?: {
@@ -174,7 +174,7 @@ export interface Product {
     };
     [k: string]: unknown;
   } | null;
-  images?: (number | Media)[] | null;
+  images?: (string | Media)[] | null;
   price?: number | null;
   /**
    * เว้นว่างถ้าไม่มีโปรโมชั่น
@@ -190,21 +190,21 @@ export interface Product {
   /**
    * ถ้าเว้นว่าง หน้าเว็บจะแสดงสินค้าในหมวดเดียวกันแทน
    */
-  relatedProducts?: (number | Product)[] | null;
+  relatedProducts?: (string | Product)[] | null;
   meta?: {
     title?: string | null;
     description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   /**
    * ใช้ในลิงก์ ภาษาอังกฤษ a-z, 0-9 และ - เท่านั้น เช่น crispy-shrimp-paste
    */
   slug: string;
   sku?: string | null;
-  categories?: (number | ProductCategory)[] | null;
+  categories?: (string | ProductCategory)[] | null;
   featured?: boolean | null;
   /**
    * เลขน้อยแสดงก่อน
@@ -219,7 +219,7 @@ export interface Product {
  * via the `definition` "media".
  */
 export interface Media {
-  id: number;
+  id: string;
   alt: string;
   updatedAt: string;
   createdAt: string;
@@ -264,14 +264,14 @@ export interface Media {
  * via the `definition` "product-categories".
  */
 export interface ProductCategory {
-  id: number;
+  id: string;
   name: string;
   /**
    * ใช้ในลิงก์ ภาษาอังกฤษ a-z, 0-9 และ - เท่านั้น เช่น crispy-shrimp-paste
    */
   slug: string;
   description?: string | null;
-  image?: (number | null) | Media;
+  image?: (string | null) | Media;
   /**
    * เลขน้อยแสดงก่อน
    */
@@ -284,10 +284,10 @@ export interface ProductCategory {
  * via the `definition` "posts".
  */
 export interface Post {
-  id: number;
+  id: string;
   title: string;
   excerpt?: string | null;
-  cover?: (number | null) | Media;
+  cover?: (string | null) | Media;
   content?: {
     root: {
       type: string;
@@ -307,7 +307,7 @@ export interface Post {
    * ใช้ในลิงก์ ภาษาอังกฤษ a-z, 0-9 และ - เท่านั้น เช่น crispy-shrimp-paste
    */
   slug: string;
-  category?: (number | null) | PostCategory;
+  category?: (string | null) | PostCategory;
   publishedAt?: string | null;
   meta?: {
     title?: string | null;
@@ -315,7 +315,7 @@ export interface Post {
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -326,7 +326,7 @@ export interface Post {
  * via the `definition` "post-categories".
  */
 export interface PostCategory {
-  id: number;
+  id: string;
   name: string;
   /**
    * ใช้ในลิงก์ ภาษาอังกฤษ a-z, 0-9 และ - เท่านั้น เช่น crispy-shrimp-paste
@@ -340,7 +340,7 @@ export interface PostCategory {
  * via the `definition` "branches".
  */
 export interface Branch {
-  id: number;
+  id: string;
   name: string;
   address: string;
   /**
@@ -356,7 +356,7 @@ export interface Branch {
    * Google Maps > แชร์ > ฝังแผนที่ แล้วคัดลอกเฉพาะค่า src="..."
    */
   mapEmbedUrl?: string | null;
-  image?: (number | null) | Media;
+  image?: (string | null) | Media;
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -366,11 +366,11 @@ export interface Branch {
  * via the `definition` "certificates".
  */
 export interface Certificate {
-  id: number;
+  id: string;
   name: string;
   description?: string | null;
-  logo: number | Media;
-  file?: (number | null) | Media;
+  logo: string | Media;
+  file?: (string | null) | Media;
   order?: number | null;
   updatedAt: string;
   createdAt: string;
@@ -382,7 +382,7 @@ export interface Certificate {
  * via the `definition` "contact-submissions".
  */
 export interface ContactSubmission {
-  id: number;
+  id: string;
   name: string;
   phone?: string | null;
   email?: string | null;
@@ -397,7 +397,7 @@ export interface ContactSubmission {
  * via the `definition` "users".
  */
 export interface User {
-  id: number;
+  id: string;
   name?: string | null;
   role: 'admin' | 'editor';
   updatedAt: string;
@@ -425,7 +425,7 @@ export interface User {
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
-  id: number;
+  id: string;
   key: string;
   data:
     | {
@@ -442,7 +442,7 @@ export interface PayloadKv {
  * via the `definition` "payload-jobs".
  */
 export interface PayloadJob {
-  id: number;
+  id: string;
   /**
    * Input data provided to the job
    */
@@ -534,48 +534,48 @@ export interface PayloadJob {
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
-  id: number;
+  id: string;
   document?:
     | ({
         relationTo: 'products';
-        value: number | Product;
+        value: string | Product;
       } | null)
     | ({
         relationTo: 'product-categories';
-        value: number | ProductCategory;
+        value: string | ProductCategory;
       } | null)
     | ({
         relationTo: 'posts';
-        value: number | Post;
+        value: string | Post;
       } | null)
     | ({
         relationTo: 'post-categories';
-        value: number | PostCategory;
+        value: string | PostCategory;
       } | null)
     | ({
         relationTo: 'branches';
-        value: number | Branch;
+        value: string | Branch;
       } | null)
     | ({
         relationTo: 'certificates';
-        value: number | Certificate;
+        value: string | Certificate;
       } | null)
     | ({
         relationTo: 'contact-submissions';
-        value: number | ContactSubmission;
+        value: string | ContactSubmission;
       } | null)
     | ({
         relationTo: 'media';
-        value: number | Media;
+        value: string | Media;
       } | null)
     | ({
         relationTo: 'users';
-        value: number | User;
+        value: string | User;
       } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   updatedAt: string;
   createdAt: string;
@@ -585,10 +585,10 @@ export interface PayloadLockedDocument {
  * via the `definition` "payload-preferences".
  */
 export interface PayloadPreference {
-  id: number;
+  id: string;
   user: {
     relationTo: 'users';
-    value: number | User;
+    value: string | User;
   };
   key?: string | null;
   value?:
@@ -608,7 +608,7 @@ export interface PayloadPreference {
  * via the `definition` "payload-migrations".
  */
 export interface PayloadMigration {
-  id: number;
+  id: string;
   name?: string | null;
   batch?: number | null;
   updatedAt: string;
@@ -888,11 +888,11 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  * via the `definition` "site-settings".
  */
 export interface SiteSetting {
-  id: number;
+  id: string;
   siteName: string;
   tagline?: string | null;
-  logo?: (number | null) | Media;
-  logoLight?: (number | null) | Media;
+  logo?: (string | null) | Media;
+  logoLight?: (string | null) | Media;
   /**
    * เช่น +6676xxxxxx
    */
@@ -914,12 +914,12 @@ export interface SiteSetting {
     | {
         name: string;
         url?: string | null;
-        logo?: (number | null) | Media;
+        logo?: (string | null) | Media;
         id?: string | null;
       }[]
     | null;
   defaultMetaDescription?: string | null;
-  defaultOgImage?: (number | null) | Media;
+  defaultOgImage?: (string | null) | Media;
   /**
    * ถ้าตั้ง CONTACT_NOTIFY_EMAIL ใน .env ไว้ จะใช้ค่านั้นแทน
    */
@@ -932,14 +932,14 @@ export interface SiteSetting {
  * via the `definition` "home-page".
  */
 export interface HomePage {
-  id: number;
+  id: string;
   hero: {
     /**
      * กด Enter เพื่อขึ้นบรรทัดใหม่ตรงที่ต้องการ
      */
     title: string;
     tagline?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     primaryCta?: {
       label?: string | null;
       /**
@@ -958,7 +958,7 @@ export interface HomePage {
   about?: {
     heading?: string | null;
     body?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
     cta?: {
       label?: string | null;
       /**
@@ -983,7 +983,7 @@ export interface HomePage {
     /**
      * ถ้าเว้นว่าง จะแสดงสินค้าที่ติ๊ก "สินค้าแนะนำ" ล่าสุดสูงสุด 10 ชิ้น
      */
-    products?: (number | Product)[] | null;
+    products?: (string | Product)[] | null;
   };
   services?: {
     heading?: string | null;
@@ -992,7 +992,7 @@ export interface HomePage {
       | {
           title: string;
           description?: string | null;
-          image?: (number | null) | Media;
+          image?: (string | null) | Media;
           /**
            * เช่น /services#wholesale
            */
@@ -1022,10 +1022,10 @@ export interface HomePage {
  * via the `definition` "about-page".
  */
 export interface AboutPage {
-  id: number;
+  id: string;
   heading: string;
   intro?: string | null;
-  heroImage?: (number | null) | Media;
+  heroImage?: (string | null) | Media;
   story?: {
     root: {
       type: string;
@@ -1050,7 +1050,7 @@ export interface AboutPage {
         year: string;
         title: string;
         description?: string | null;
-        image?: (number | null) | Media;
+        image?: (string | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1058,7 +1058,7 @@ export interface AboutPage {
     quote?: string | null;
     name?: string | null;
     role?: string | null;
-    image?: (number | null) | Media;
+    image?: (string | null) | Media;
   };
   /**
    * รายการใบรับรองจัดการที่เมนู "ใบรับรอง"
@@ -1073,7 +1073,7 @@ export interface AboutPage {
  * via the `definition` "services-page".
  */
 export interface ServicesPage {
-  id: number;
+  id: string;
   heading: string;
   intro?: string | null;
   sections?:
@@ -1098,7 +1098,7 @@ export interface ServicesPage {
           };
           [k: string]: unknown;
         } | null;
-        image?: (number | null) | Media;
+        image?: (string | null) | Media;
         cta?: {
           label?: string | null;
           /**
@@ -1118,14 +1118,14 @@ export interface ServicesPage {
  * via the `definition` "how-to-order-page".
  */
 export interface HowToOrderPage {
-  id: number;
+  id: string;
   heading: string;
   intro?: string | null;
   steps?:
     | {
         title: string;
         description?: string | null;
-        image?: (number | null) | Media;
+        image?: (string | null) | Media;
         id?: string | null;
       }[]
     | null;
@@ -1391,12 +1391,12 @@ export interface TaskSchedulePublish {
     locale?: string | null;
     doc?: {
       relationTo: 'posts';
-      value: number | Post;
+      value: string | Post;
     } | null;
     global?: string | null;
     user?: {
       relationTo: 'users';
-      value: number | User;
+      value: string | User;
     } | null;
   };
   output?: unknown;

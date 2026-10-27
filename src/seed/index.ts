@@ -8,6 +8,7 @@
  */
 import config from '@payload-config'
 import { getPayload, type CollectionSlug, type Payload } from 'payload'
+import type { Product, ProductCategory } from '@/payload-types'
 
 import { placeholderImage, placeholderPDF, richText, TODO, TODO_EN } from './helpers'
 
@@ -66,7 +67,7 @@ async function seed() {
   if (reset) await wipe(payload)
 
   // --- Product categories ----------------------------------------------------
-  const categoryIds: number[] = []
+  const categoryIds: ProductCategory['id'][] = []
   for (const [i, cat] of PRODUCT_CATEGORIES.entries()) {
     const image = await placeholderImage(payload, { label: cat.label, alt: cat.th })
     const doc = await payload.create({
@@ -84,7 +85,7 @@ async function seed() {
   }
 
   // --- Products: 2 per category, first one of each is featured ---------------
-  const productIds: number[] = []
+  const productIds: Product['id'][] = []
   for (let n = 1; n <= 10; n++) {
     const num = String(n).padStart(2, '0')
     const categoryIndex = (n - 1) % PRODUCT_CATEGORIES.length
@@ -436,7 +437,10 @@ async function seed() {
   process.exit(0)
 }
 
-seed().catch((err) => {
+// Top-level await: `payload run` exits once the module has loaded, so the seed must finish first.
+try {
+  await seed()
+} catch (err) {
   console.error(err)
   process.exit(1)
-})
+}

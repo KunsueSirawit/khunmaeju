@@ -3,7 +3,7 @@ import type { Where } from 'payload'
 import { cache } from 'react'
 
 import type { Locale } from '@/i18n/locales'
-import type { Post, Product } from '@/payload-types'
+import type { Post, PostCategory, Product, ProductCategory } from '@/payload-types'
 
 import { payloadClient } from './payload'
 
@@ -11,7 +11,7 @@ export const PRODUCTS_PER_PAGE = 24
 export const POSTS_PER_PAGE = 12
 
 /**
- * Dev-only: USE_FIXTURES=true serves every page from src/fixtures instead of Postgres,
+ * Dev-only: USE_FIXTURES=true serves every page from src/fixtures instead of MongoDB,
  * so the front end can be built and reviewed without a database.
  */
 const useFixtures = process.env.USE_FIXTURES === 'true' && process.env.NODE_ENV !== 'production'
@@ -76,7 +76,7 @@ export const getProductCategory = cache(async (locale: Locale, slug: string) => 
 })
 
 /** Products picked on the home page, or the newest "featured" ones when none are picked. */
-export const getFeaturedProducts = async (locale: Locale, picked: (number | Product)[] | null | undefined) => {
+export const getFeaturedProducts = async (locale: Locale, picked: (Product['id'] | Product)[] | null | undefined) => {
   const chosen = (picked ?? []).filter((p): p is Product => typeof p === 'object' && p !== null)
   if (chosen.length) return chosen.filter((p) => p._status === 'published')
   if (useFixtures) return (await fixtures()).products(locale).filter((p) => p.featured).slice(0, 10)
@@ -94,7 +94,7 @@ export const getFeaturedProducts = async (locale: Locale, picked: (number | Prod
 }
 
 export const getProducts = cache(
-  async (locale: Locale, page: number, categoryId?: number): Promise<Paginated<Product>> => {
+  async (locale: Locale, page: number, categoryId?: ProductCategory['id']): Promise<Paginated<Product>> => {
     if (useFixtures) {
       const all = (await fixtures())
         .products(locale)
@@ -183,7 +183,7 @@ export const getPostCategories = cache(async (locale: Locale) => {
 })
 
 export const getPosts = cache(
-  async (locale: Locale, page: number, categoryId?: number, limit = POSTS_PER_PAGE): Promise<Paginated<Post>> => {
+  async (locale: Locale, page: number, categoryId?: PostCategory['id'], limit = POSTS_PER_PAGE): Promise<Paginated<Post>> => {
     if (useFixtures) {
       const all = (await fixtures())
         .posts(locale)

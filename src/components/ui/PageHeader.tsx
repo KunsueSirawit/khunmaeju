@@ -11,7 +11,7 @@ type Props = {
   title: string
   intro?: string | null
   crumbs?: Crumb[]
-  image?: number | Media | null
+  image?: Media['id'] | Media | null
 }
 
 /** Banner at the top of every inner page: breadcrumb, title, optional intro and photo. */

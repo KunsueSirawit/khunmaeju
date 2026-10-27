@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+import { toSrc } from '@/components/ui/MediaImage'
 import type { Media } from '@/payload-types'
 
 type Img = Pick<Media, 'id' | 'url' | 'alt' | 'width' | 'height' | 'focalX' | 'focalY'> & {
@@ -15,7 +16,7 @@ export function ProductGallery({ images, labels }: { images: Img[]; labels: { th
   const current = images[active]
   if (!current) return <div className="aspect-square rounded-[var(--radius-card)] bg-sand" />
 
-  const src = (img: Img, size?: 'card' | 'thumbnail') => (size && img.sizes?.[size]?.url) || img.url || ''
+  const src = (img: Img, size?: 'card' | 'thumbnail') => toSrc((size && img.sizes?.[size]?.url) || img.url || '')
   const position = (img: Img) =>
     img.focalX != null && img.focalY != null ? { objectPosition: `${img.focalX}% ${img.focalY}%` } : undefined
 

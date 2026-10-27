@@ -24,7 +24,7 @@ const stamp = '2026-01-01T00:00:00.000Z'
 const meta = { updatedAt: stamp, createdAt: stamp }
 
 const media = (id: number, name: string, width: number, height: number, alt: string): Media => ({
-  id,
+  id: String(id),
   alt,
   url: `/styleguide/${name}.svg`,
   width,
@@ -32,7 +32,7 @@ const media = (id: number, name: string, width: number, height: number, alt: str
   ...meta,
 })
 
-const pdf = (id: number, alt: string): Media => ({ id, alt, url: '/styleguide/cert-1.svg', mimeType: 'application/pdf', ...meta })
+const pdf = (id: number, alt: string): Media => ({ id: String(id), alt, url: '/styleguide/cert-1.svg', mimeType: 'application/pdf', ...meta })
 
 const copy = {
   th: {
@@ -146,7 +146,7 @@ const pad = (n: number) => String(n).padStart(2, '0')
 
 const productCategories = (locale: Locale): ProductCategory[] =>
   copy[locale].categories.map((name, i) => ({
-    id: i + 1,
+    id: String(i + 1),
     name,
     slug: categorySlugs[i],
     description: `${copy[locale].T} ${name}`,
@@ -162,7 +162,7 @@ const products = (locale: Locale): Product[] => {
     const n = i + 1
     const img = ((n - 1) % 10) + 1
     return {
-      id: n,
+      id: String(n),
       name: `${c.T} ${c.product} ${pad(n)}`,
       slug: `sample-product-${pad(n)}`,
       sku: `SAMPLE-${pad(n)}`,
@@ -189,7 +189,7 @@ const products = (locale: Locale): Product[] => {
 }
 
 const postCategories = (locale: Locale): PostCategory[] =>
-  copy[locale].postCategories.map((name, i) => ({ id: i + 1, name, slug: i === 0 ? 'news' : 'promotion', ...meta }))
+  copy[locale].postCategories.map((name, i) => ({ id: String(i + 1), name, slug: i === 0 ? 'news' : 'promotion', ...meta }))
 
 const posts = (locale: Locale): Post[] => {
   const c = copy[locale]
@@ -197,7 +197,7 @@ const posts = (locale: Locale): Post[] => {
   return Array.from({ length: 14 }, (_, i) => {
     const n = i + 1
     return {
-      id: n,
+      id: String(n),
       title: `${c.T} ${c.newsTitle} ${n}`,
       slug: `sample-news-${n}`,
       excerpt: `${c.T} ${c.newsExcerpt} ${n}`,
@@ -214,7 +214,7 @@ const posts = (locale: Locale): Post[] => {
 const certificates = (locale: Locale): Certificate[] => {
   const c = copy[locale]
   return [1, 2, 3, 4, 5, 6].map((n) => ({
-    id: n,
+    id: String(n),
     name: `${c.T} ${c.certificate} ${n}`,
     description: `${c.T} ${c.certificate}`,
     logo: media(500 + n, `cert-${n}`, 320, 320, `${c.certificate} ${n}`),
@@ -227,7 +227,7 @@ const certificates = (locale: Locale): Certificate[] => {
 const branches = (locale: Locale): Branch[] => {
   const c = copy[locale]
   return [1, 2].map((n) => ({
-    id: n,
+    id: String(n),
     name: `${c.T} ${c.branch} ${n}`,
     address: `${c.T} ${c.address}`,
     openingHours: `${c.T} ${c.hours}`,
@@ -242,7 +242,7 @@ const branches = (locale: Locale): Branch[] => {
 const siteSettings = (locale: Locale): SiteSetting => {
   const c = copy[locale]
   return {
-    id: 1,
+    id: '1',
     siteName: c.siteName,
     tagline: `${c.T} tagline`,
     phone: '+66000000000',
@@ -261,7 +261,7 @@ const siteSettings = (locale: Locale): SiteSetting => {
 const homePage = (locale: Locale): HomePage => {
   const c = copy[locale]
   return {
-    id: 1,
+    id: '1',
     hero: {
       title: c.heroTitle,
       tagline: `${c.T} tagline`,
@@ -299,7 +299,7 @@ const aboutPage = (locale: Locale): AboutPage => {
   const c = copy[locale]
   const a = c.about
   return {
-    id: 1,
+    id: '1',
     heading: a.heading,
     intro: `${c.T} intro`,
     heroImage: media(2, 'about', 1200, 900, a.heading),
@@ -322,7 +322,7 @@ const servicesPage = (locale: Locale): ServicesPage => {
   const c = copy[locale]
   const s = c.servicesPage
   return {
-    id: 1,
+    id: '1',
     heading: s.heading,
     intro: `${c.T} intro`,
     sections: ['wholesale', 'gift', 'oem'].map((anchor, i) => ({
@@ -342,7 +342,7 @@ const howToOrderPage = (locale: Locale): HowToOrderPage => {
   const o = c.order
   const types = ['line', 'phone', 'store'] as const
   return {
-    id: 1,
+    id: '1',
     heading: o.heading,
     intro: `${c.T} intro`,
     steps: o.steps.map((title, i) => ({ id: String(i), title, description: `${c.T} ${o.stepDetail}` })),

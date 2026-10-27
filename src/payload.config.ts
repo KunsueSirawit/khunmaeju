@@ -1,4 +1,4 @@
-import { postgresAdapter } from '@payloadcms/db-postgres'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -26,7 +26,6 @@ import { ServicesPage } from './globals/ServicesPage'
 import { SiteSettings } from './globals/SiteSettings'
 import { locales, defaultLocale } from './i18n/locales'
 import { serverURL } from './lib/preview'
-import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -79,12 +78,9 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: postgresAdapter({
-    pool: {
-      connectionString: process.env.DATABASE_URL || '',
-    },
-    // Dev uses schema push; production applies the committed migrations on boot.
-    prodMigrations: migrations,
+  // MongoDB Atlas (or any replica set: Payload needs one for transactions).
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URL || '',
   }),
   email: useSMTP
     ? nodemailerAdapter({
